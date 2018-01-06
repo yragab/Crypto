@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "\n\n# CREATE DATASET\n# Create a 2-d dataset with two clusters\ndataset = data.frame(\n  x = c(rnorm(1000, 5, 1), rnorm(1000, 10, 3)), \n  y = c(rnorm(1000, 3, 1), rnorm(1000, 12, 1.5)))\n# Visualize it\nwith(dataset, plot(x, y))\n\n\n# CLUSTERING\n# k-means Clustering\nclustering = kmeans(data_set, 2)\n# Visulize clusters\nwith(dataset, plot(x, y, col = clustering$cluster))\n# Add the cluster label to the dataset\nclustered_dataset = cbind(dataset, clustering$cluster)\n# Look at the data\nView(clustered_dataset)\n\n# SAVING DATA\n# file name\nfile_name = paste(deparse(substitute(clustered_dataset)), \".csv\", sep = \"\")\n# Save as csv\nwrite.csv(clustered_dataset, file_name)",
+    "created" : 1514966843569.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2565173282",
+    "id" : "7E5FFD51",
+    "lastKnownWriteTime" : 1514968393,
+    "last_content_update" : 1514968393,
+    "path" : "~/Library/Mobile Documents/com~apple~CloudDocs/Work/Side/Crypto/Untitled.R",
+    "project_path" : "Untitled.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

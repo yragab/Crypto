@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "nrow(ada_data_augmented %>% filter(hit == TRUE))\n\nplotPriceAction(ada_data_augmented %>% filter(time > 1514986200))\n\nv = ada_data_augmented %>% \n  select(time, high_change_7m, high_change_15m, low_change_15m, high_change_30m, \n         low_change_30m, high_ema_7m, high_ema_30m, \n         high_ema_7m_change_7m, hit) %>%\n  filter(hit == TRUE, time < 1515000000)\n\nView(v)\n\n\nView(ada_data_augmented %>% filter(time <= 1514996100))",
+    "created" : 1515265350954.000,
+    "dirty" : true,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "619387968",
+    "id" : "F8B8EB2F",
+    "lastKnownWriteTime" : 7025172793917404020,
+    "last_content_update" : 1515265352946,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

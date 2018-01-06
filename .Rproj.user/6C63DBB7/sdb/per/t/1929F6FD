@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "\nlibrary(jsonlite)\nlibrary(data.table)\n\n# View a list of all cryptos\nresponse = fromJSON('https://www.cryptocompare.com/api/data/coinlist')\ncryptos = rbindlist(response$Data, fill = TRUE)\nView(cryptos)\n\n# Price of a single coin\nresponse = fromJSON('https://min-api.cryptocompare.com/data/price?fsym=LTC&tsyms=USDT&e=Binance')\n\n# Prices of multiple coins\nresponse = fromJSON('https://min-api.cryptocompare.com/data/pricemulti?fsyms=XVG,ADA&tsyms=BTC&e=Binance')\nresponse = fromJSON('https://min-api.cryptocompare.com/data/pricemulti?fsyms=ETH,DASH,NXT&tsyms=BTC,USD&e=Poloniex')\n\n# Details of multiple coins\nresponse = fromJSON('https://min-api.cryptocompare.com/data/pricemultifull?fsyms=XVG,ADA&tsyms=BTC&e=Binance')\n\n# Top currencies exhanged to from a given currency\nresponse = fromJSON('https://min-api.cryptocompare.com/data/top/pairs?fsym=BTC&limit=20')\n\n# Details per minute\nxvg_response = fromJSON('https://min-api.cryptocompare.com/data/histominute?fsym=XVG&tsym=BTC&aggregate=3&e=Binance')\nada_response = fromJSON('https://min-api.cryptocompare.com/data/histominute?fsym=ADA&tsym=BTC&aggregate=3&e=Binance')\n\n\n\n# Basic data investigation\nplotHighs <- function(crypto_data) {\n  plot(crypto_data$time, crypto_data$high)\n}\n\ncomputeDiffHighs <- function(crypto_data, diff_interval_min) {\n  d = diff(crypto_data$high, diff_interval_min)\n  f = crypto_data$high[1:length(d)]\n  c = round(100 * d / f, 2)\n  c = c(rep(0, nrow(crypto_data) - length(c)), c)\n  return(c)\n}\n\nprocessCryptoData <- function(crypto_data) {\n  plotHighs(crypto_data)\n  c_5 = computeDiffHighs(crypto_data, 5)\n  c_15 = computeDiffHighs(crypto_data, 15)\n  c_30 = computeDiffHighs(crypto_data, 30)\n  c_60 = computeDiffHighs(crypto_data, 60)\n  crypto_data = cbind(crypto_data, c_5, c_15, c_30, c_60)\n  View(crypto_data)\n  return(crypto_data)\n}\n\nvrg_data = processCryptoData(xvg_response$Data)\nada_data = processCryptoData(ada_response$Data)\nbcc_response = fromJSON('https://min-api.cryptocompare.com/data/histominute?fsym=BCCOIN&tsym=USD&aggregate=3')\nbcc_data = processCryptoData(bcc_response$Data)\n\n\n\n\ndiff(diff(bcc_data$high, 5), 5)\n\n\n\n",
+    "created" : 1514358987327.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "48398918",
+    "id" : "1929F6FD",
+    "lastKnownWriteTime" : 1514376321,
+    "last_content_update" : 1514376321149,
+    "path" : "~/Library/Mobile Documents/com~apple~CloudDocs/Work/Side/Crypto/pull_crypto_data.R",
+    "project_path" : "pull_crypto_data.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "\n\nlibrary(ggplot2)\nlibrary(quantmod)\nFOSL <- getSymbols(\"FOSL\", from=\"2015-01-01\", auto.assign=FALSE)\nnames(FOSL) <- gsub(\"^.+\\\\.\",\"\",names(FOSL))  # remove \"FOSL.\" from column names\n\nrng <- \"2015-08\"\nFOSL <- FOSL[rng]\nFOSL <- data.frame(Date=as.POSIXct(index(FOSL)), FOSL[,1:4])\n\nFOSL$chg <- ifelse(Cl(FOSL) > Op(FOSL), \"up\", \"dn\")\nFOSL$width <- as.numeric(periodicity(FOSL)[1])\nFOSL$flat_bar <- FOSL[, \"High\"] == FOSL[, \"Low\"]\n\n# Candle chart:\npl <- ggplot(FOSL, aes(x=Date)) +\n  geom_linerange(aes(ymin=Low, ymax=High)) +\n  theme_bw() +\n  labs(title=\"FOSL\") +\n  geom_rect(aes(xmin = Date - width/2 * 0.9, xmax = Date + width/2 * 0.9, ymin = pmin(Open, Close), ymax = pmax(Open, Close), fill = chg)) + guides(fill = FALSE, colour = FALSE) + scale_fill_manual(values = c(\"dn\" = \"darkred\", \"up\" = \"darkgreen\"))\n\n# Handle special case of drawing a flat bar where OHLC = Open:\nif (any(FOSL$flat_bar)) pl <- pl + geom_segment(data = FOSL[FOSL$flat_bar,], aes(x = Date - width / 2 * 0.9, y = Close, yend = Close, xend = Date + width / 2 * 0.9))\n\nprint(pl)\n",
+    "created" : 1515261485625.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1011478925",
+    "id" : "F60BA7C8",
+    "lastKnownWriteTime" : 1515261654,
+    "last_content_update" : 1515261654901,
+    "path" : "~/Library/Mobile Documents/com~apple~CloudDocs/Work/Side/Crypto/crypto_visualizer.R",
+    "project_path" : "crypto_visualizer.R",
+    "properties" : {
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
